@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,8 +26,6 @@
 		B67483DF1ACA2D6800A9970E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B67483E11ACA2D6800A9970E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B67483E41ACA2D6800A9970E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		B67483EF1ACA2D6800A9970E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B67483F01ACA2D6800A9970E /* HTTPSwiftExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPSwiftExampleTests.swift; sourceTree = "<group>"; };
 		B68A10671FABAC9700B89471 /* CMLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMLViewController.swift; sourceTree = "<group>"; };
 		B694B0191FA377E4009A4277 /* RingBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingBuffer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -47,7 +45,6 @@
 			isa = PBXGroup;
 			children = (
 				B67483D71ACA2D6800A9970E /* HTTPSwiftExample */,
-				B67483ED1ACA2D6800A9970E /* HTTPSwiftExampleTests */,
 				B67483D61ACA2D6800A9970E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -84,23 +81,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		B67483ED1ACA2D6800A9970E /* HTTPSwiftExampleTests */ = {
-			isa = PBXGroup;
-			children = (
-				B67483F01ACA2D6800A9970E /* HTTPSwiftExampleTests.swift */,
-				B67483EE1ACA2D6800A9970E /* Supporting Files */,
-			);
-			path = HTTPSwiftExampleTests;
-			sourceTree = "<group>";
-		};
-		B67483EE1ACA2D6800A9970E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				B67483EF1ACA2D6800A9970E /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -127,7 +107,8 @@
 		B67483CD1ACA2D6800A9970E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1200;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Eric Larson";
 				TargetAttributes = {
 					B67483D41ACA2D6800A9970E = {
@@ -305,7 +286,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -319,7 +301,10 @@
 				DEVELOPMENT_TEAM = F69WJ27LN4;
 				INFOPLIST_FILE = HTTPSwiftExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = SMU.HTTPSwiftExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -336,7 +321,10 @@
 				DEVELOPMENT_TEAM = F69WJ27LN4;
 				INFOPLIST_FILE = HTTPSwiftExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = SMU.HTTPSwiftExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

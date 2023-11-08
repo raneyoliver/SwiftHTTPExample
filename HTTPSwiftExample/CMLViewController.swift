@@ -121,9 +121,12 @@ class CMLViewController: UIViewController {
     // convert to ML Multi array
     // https://github.com/akimach/GestureAI-CoreML-iOS/blob/master/GestureAI/GestureViewController.swift
     private func toMLMultiArray(_ arr: [Double]) -> MLMultiArray {
+        // create an empty multi array
         guard let sequence = try? MLMultiArray(shape:[150], dataType:MLMultiArrayDataType.double) else {
             fatalError("Unexpected runtime error. MLMultiArray could not be created")
         }
+        
+        // populate the multi array with data
         let size = Int(truncating: sequence.shape[0])
         for i in 0..<size {
             sequence[i] = NSNumber(floatLiteral: arr[i])
