@@ -16,7 +16,7 @@
 // to see what your public facing IP address is, the ip address can be used here
 
 // CHANGE THIS TO THE URL FOR YOUR LAPTOP
-let SERVER_URL = "http://10.9.130.20:8000" // change this for your server name!!!
+let SERVER_URL = "http://192.168.1.48:8000" // change this for your server name!!!
 
 import UIKit
 import CoreMotion
@@ -55,6 +55,14 @@ class ViewController: UIViewController, URLSessionDelegate {
     @IBOutlet weak var downArrow: UILabel!
     @IBOutlet weak var leftArrow: UILabel!
     @IBOutlet weak var largeMotionMagnitude: UIProgressView!
+    
+    @IBOutlet weak var dsidStepper: UIStepper!
+    
+    @IBAction func dsidStepperValueChanged(_ sender: UIStepper) {
+        self.dsid = Int(dsidStepper.value)
+        print(dsidStepper.value)
+    }
+    
     
     // MARK: Class Properties with Observers
     enum CalibrationStage {
@@ -257,6 +265,9 @@ class ViewController: UIViewController, URLSessionDelegate {
         startMotionUpdates()
         
         dsid = 1 // set this and it will update UI
+        self.dsidStepper.value = 1
+        self.dsidStepper.minimumValue = 1
+        getLargestDataSetId()
     }
 
     //MARK: Get New Dataset ID
@@ -276,7 +287,41 @@ class ViewController: UIViewController, URLSessionDelegate {
                     
                     // This better be an integer
                     if let dsid = jsonDictionary["dsid"]{
+                        
+                        DispatchQueue.main.async{
+                            self.dsidStepper.maximumValue = dsid as! Double
+                            self.dsidStepper.value = dsid as! Double
+                        }
                         self.dsid = dsid as! Int
+                    }
+                }
+                
+        })
+        
+        dataTask.resume() // start the task
+        
+    }
+    
+    //MARK: Get Largest Dataset ID
+    func getLargestDataSetId() {
+        // create a GET request for a new DSID from server
+        let baseURL = "\(SERVER_URL)/GetLargestDatasetId"
+        
+        let getUrl = URL(string: baseURL)
+        let request: URLRequest = URLRequest(url: getUrl!)
+        let dataTask : URLSessionDataTask = self.session.dataTask(with: request,
+            completionHandler:{(data, response, error) in
+                if(error != nil){
+                    print("Response:\n%@",response!)
+                }
+                else{
+                    let jsonDictionary = self.convertDataToDictionary(with: data)
+                    
+                    // This better be an integer
+                    if let dsid = jsonDictionary["dsid"]{
+                        DispatchQueue.main.async{
+                            self.dsidStepper.maximumValue = dsid as! Double
+                        }
                     }
                 }
                 
@@ -384,7 +429,15 @@ class ViewController: UIViewController, URLSessionDelegate {
             blinkLabel(rightArrow)
             break
         default:
-            print("Unknown")
+            var previousColor = UIColor.systemGray
+            DispatchQueue.main.async {
+                previousColor = self.dsidLabel.textColor
+                self.dsidLabel.textColor = UIColor.red
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+                self.dsidLabel.textColor = previousColor
+            })
             break
         }
     }
